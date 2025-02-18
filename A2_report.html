@@ -1,0 +1,145 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<title>Vis & Society Assignment 2</title>
+	<link rel="stylesheet" href="https://vis-society.github.io/assignments/report.css" />
+	<style>
+		img {
+			max-width: 100%;
+			height: auto;
+		}
+	</style>
+</head>
+
+<body>
+	<header>
+		<h1>
+			<small>Assignment 2</small>
+			Exploratory Data Analysis
+		</h1>
+
+		<p>
+			<strong>Nithya Shikarpur</strong> — <em>snnithya@mit.edu</em>
+		</p>
+	</header>
+	<main>
+		<section>
+			<h2>Subtheme:  Historical exclusions, Contemporary effects</h2>
+
+			<h3>Overall Analysis Questions</h3>
+			<ol>
+				<li>What is the distribution of race across different areas of Boston?</li>
+				<li>How is income distributed in neighborhoods? Does race have role to play in the income of individuals in the same community?</li>
+				<li>Does the effect of access to MBTA affect the distribution of the type of population in a neighborhood?</li>
+			</ol>
+		</section>
+
+		<section>
+			<h2>Discoveries & Insights</h2>
+
+			<b>Dataset: Single family zoning vs other housing zoning in Metro Boston</b>
+
+			<p>I first start with a univariate analysis to explore the quality of the dataset.</p>
+			<figure>
+				<img src="images/ex1.png" alt="" />
+				<figcaption>
+				A plot of the total population in each municipality present in the datset.
+				</figcaption>
+			</figure>
+			<p>We see that 4 municipalities: Burlington, Chelsea, Everett, and Somerville have 0 population. This could point to something incorrect in the dataset. To further test this, I visualize the is MBTA variable across different municipalities:</p>
+
+			<figure>
+				<img src="images/ex2.png" alt="" />
+				<figcaption>
+				A bar chart of the total population in each municipality. The colouring is done by the SUM of the boolean attribute "is MBTA" which indicates whether it is listed as an MBTA community.
+				</figcaption>
+			</figure>
+			<p>This looks wrong since a boolean value should not have the value two. Upon further inspection of the data, it becomes clear that there are multiple entries for each municipality. We can confirm this by visualizing the count of population for each of the municipalities as seen below. </p>
+
+			<figure>
+				<img src="images/ex3.png" alt="" />
+				<figcaption>
+				The number of population entries per municipality.
+				</figcaption>
+			</figure>
+			<p>Note that the choice of population in the previous figure is arbitrary. It is used as a proxy to visualize the number of data points per municipality. If we look closely to the image, we see that the 4 municipalities identified in fig 1, aren't present in the graph, i.e. have 0 entries. Now I'm curious to see how many of the data points have 0 population or 0 number of households as aggregated metrics. This might indicate the existence of some uninformative data, which might potentially give rise to multiple points for the same municipality. I choose these two metrics because these two aggregated values seem to have come from different datasets and were potentially joined.</p>
+			<figure>
+				<img src="images/ex4.png" alt="" />
+				<figcaption>
+				A histogram of each of the distinct population values.
+				</figcaption>
+			</figure>
+				From the figure we see that 10 entries have 0 population. Through inspection of the dataset, I see that these entries have a non-zero value for household information. Thus I decide not to discard any rows as they are all possibly valuable information and the multiple points per municipality might be a result of some join done on the two datasets on population and household information. Given that I don't have access to the original data to check it's sources and debug the reason for this, I decide to go ahead without filtering any points. I'm careful to consider whether to aggregate metrics as sum or average per municipality based on the use case.
+			<h3>What is the distribution of race across different areas of Boston?</h3>
+
+			For the simplicity of visualization, I start with plotting the ‘Non-Hispanic White Population’ (nhwhi) and the ‘Non-Hispanic  Black or African American Population’ (nhaa) on the map. This decision was guided by the history of redlining and exclusionary zoning practices that have prevented the African American population from renting houses in certain neighborhoods, as discussed in the reading. My hypothesis is that the percentage of white population and percentage of black or african american population should be negatively correlated across different neighbourhoods due to discriminatory practices in the past. 
+
+			I started by calculating attributes: percentage of non-hispanic white population and percentage of black or African American population by dividing nhwhi and nhaa features by average of pop per municipality in the dataset (average had to be taken because of the multiple data points per municipality discussed above).
+
+
+			<figure>
+				<img src="images/ex5.png" alt="" />
+				<figcaption>
+				A map of different municipalities present in the greater Boston area. The size of the marker determines the average percentage of Non-Hispanic White Population present and the colour determines the average percentage of Non-Hispanic Black or African American Population present. The smallest circle with a high percentage of nhaa is Roxbury and has been highlighted with a purple circle.
+				</figcaption>
+			</figure>
+			Based on my hypothesis, the smaller circles should have a more red shade whereas the larger circles should have a darker green shade. It appears that Roxbury has a very high percentage of nhaa population and thus it reduces the dynamic range of colour for the rest of the data points. In fact Roxbury is so small on the map that I had to highlight it with a purple circle in the figure. But the hypothesis has shown to be true with smaller circles taking on a lighter green colour and larger circles thaking on a darker green colour.
+
+			<figure>
+				<img src="images/ex6.png" alt="" />
+				<figcaption>
+				Scatter plot of the average percentage of nhwhi vs. average percentage of nhaa. Note the x-axis is on a logarithmic scale.
+				</figcaption>
+			</figure>
+			Due to the small percentage of nhaa individuals in the dataset, I have used a logarithmic x-axis to highlight the correlation in the data. Additionally I filtered out 24 municipalities that contained 0% nhaa population. In Fig 6, there is a negative correlation implying that neighborhoods with a high nhwhi population are more likely to have a low nhaa population. 
+
+			<h3>How is income distributed in neighborhoods? Does race have role to play in the income of individuals in the same community?</h3>
+
+			To investigate this question, I first set out to plot the number of households in each of the income brackets given in the dataset.
+			<figure>
+				<img src="images/ex7.png" alt="" />
+				<figcaption>
+				Histogram of the number of households in each income brackets in the dataset.
+				</figcaption>
+			</figure>
+
+			In the figure we see that there are several households earning above $200,000. For the simplicity of future images, I'm going to consolidate these classes further into (1) In1: 0 - 50000, (2) In2: 50000-200000 and (3) In3: 200000 and above.
+			<figure>
+				<img src="images/ex8.png" alt="" />
+				<figcaption>
+				Scatter plot of percentage of nhwhi vs. the average income of all municipalities for each income bracket as defined above.
+				</figcaption>
+			</figure>
+			For the purpose of this chart, it seems like all 3 income brackets have similar number of states that have lower percentage of nhwhi. For instance, below 0.8 nhwhi, there are 17, 18 and 17 municipalities in In1, In2 and In3 respectively. Thus there is no clear indication of whether income of a household depends on if the neighborhood's population of nhwhi people. 
+
+			<h3>Does the effect of access to MBTA affect the distribution of the type of population in a neighborhood?</h3>
+			Through my experience in North American cities, I’ve found that it is more difficult to access wealthier neighborhoods by public transport. I was curious to see if the existence of connectivity with the MBTA would affect population density or income of various neighborhoods.
+
+			I'll start with visualizing the MBTA community municipalities on the map.
+			<figure>
+				<img src="images/ex9.png" alt="" />
+				<figcaption>
+				Map of Greater Boston area with colour showing whether the municipality is an MBTA community or not.
+				</figcaption>
+			</figure>
+
+			Two things stand out to me from Fig 9. Firstly Boston is not an MBTA community, which I found odd since I have seen MBTA stations all over Boston. Upon further research I found that it wasn't included as an MBTA community on the basis of <a href="https://www.boston.com/news/community/2025/02/14/mbta-communities-act-misconceptions-debunked-by-experts/#h-myth-the-state-wants-to-turn-my-community-into-boston-and-why-isn-t-boston-included-in-this-law">a technicality</a>. For the purpose of this assignment however, I will assume that it is not an MBTA community since that is a fact. Secondly, there are only 4 of 101 municipalities in the dataset that is not an MBTA community. This can make generalizing characteristics such as average population density or income based on whether a municipality is an MBTA community a little unreliable since there might be more variance in the non-MBTA community group (due to lower number of points). However, for the sake of completeness, I try to visualize average population density below.
+
+			<figure>
+				<img src="images/ex10.png" alt="" />
+				<figcaption>
+				Box plot of the average population density of a municipality grouped by whether they are an MBTA community of not. 
+				</figcaption>
+			</figure>
+
+			As discussed above, it is difficult to draw conclusions from the above plot. The figure indicates that non-MBTA communities have a much larger spread of population density, but also the variance is too high for this group and thus this hypothesis should be checked through other datasets or methods. 
+		</section>
+
+		<section>
+			<h2>Summary</h2>
+
+			<p>Through this report, I discovered the importance of univariate analysis when first familiarizing oneself with the dataset. The presence of multiple data points for the same municipality could have led to incorrect visualization if handled by the incorrect aggregation operators (sum instead of average or vice versa). Regarding my questions, we see that there is clearly a negative correlation between the percentage of white and African American population in different neighborhoods. This finding is backed by the history of exclusionary zoning practices in the Greater Boston area that have prevented diverse populations within neighborhoods. For my second question, from fig 7, we confirm that there is a wide distribution of income brackets and use that to form more abstract groups of income - In1, In2 and In3. It is however difficult to find a relationship between income and the percentage of white people in a neighborhood. Perhaps it would be interesting to visualize how the presence of a majority of other racial groups affects average income of households in the data. This could be done in future iterations. For the third question, we see that very few municipalities are considered non-MBTA communities. I don't see any clear relation between population density and whether the municipality is or is not an MBTA community. For future work I would either collect more data on non-MBTA cities. If that is not possible, I would perhaps try to find another grouping which may serve as a loose proxy such as "the number of cars owned by a household".</p>
+		</section>
+	</main>
+</body>
+</html>
