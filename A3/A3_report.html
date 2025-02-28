@@ -1,0 +1,195 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<title>Vis & Society Assignment 3</title>
+	<link rel="stylesheet" href="https://vis-society.github.io/assignments/report.css" />
+	<style>
+		img {
+			max-width: 100%;
+			height: auto;
+		}
+	</style>
+</head>
+
+<body>
+	<header>
+		<h1>
+			<small>Assignment 3</small>
+			Visualization Critique & Redesign
+		</h1>
+
+		<p>
+			<strong>Nithya Shikarpur</strong> — <em>snnithya@mit.edu</em>
+		</p>
+	</header>
+
+	<main>
+		<section>
+			<h2>Reading & Critique</h2>
+
+			<figure>
+				<img src="https://vis-society.github.io/assets/imgs/covid-spiral.png" alt="" />
+			</figure>
+
+			<p>
+				Insights about the data/visualization:
+			</p>
+
+			<ul>
+				<li>The spiral shape makes it very easy to compare trends over the years. It also allows us to see trends over certain seasons. For instance there seems to be peaks during winters of 2021 and 2022.</li>
+				<li>The spiral shape as it moves outwards with time, also reflects the metaphor of the pandemic unfolding which I think is very neat. </li>
+				<li>It is clear that big width means a lot of cases. That increase in size is clear in January 2022 which help corroborate the story of the NYTimes article.</li>
+			</ul>
+
+			<p>
+				Design Critique:
+			</p>
+
+			<ul>
+				<li>This visualization is intended for the general public to give them a sense of what to expect with a new variant of covid, i.e. omicron, on the loose. While the trend of increasing cases during the time of omicron (Jan 2022), there are a lot of unclear factors. Things like 'how much are the number of cases increasing by', 'what other external factors might be at play here', are not answered. I'll dive into some of these below.</li>
+				<li>The number of covid cases are depicted as area. However, as humans we are not very good at gauging differences in areas. Additionally, the area in this visualization is not aligned with any scale to help with comparison. To address this, one could use length instead of area to depict the number of cases and use either colour or discrete units along the length to help the audience easily understand the number of cases without too much cognitive load. </li>
+				<li>From the figure, the legend claims ‘150K cases’ and there is an annotation that marks a ‘7-day average’. I found this information rather vague and confusing. I would assume that they are referring to the number of active covid cases in the graph and perhaps some slice of the area depicts a 7-day average of this value. However since the area in the visualization is continuous and not discrete, it is not clear what the size of this “slice” is. To address this point, adding some kind of discreteness to the plot along the spiral will help people understand how many days one unit refers to.</li>
+				<li>Given that this visualization is aimed for the general public, I worry that there is not enough context packed into the visualization. In addition to the need for clarity in the legend and annotation discussed above, I think there needs to be more information such as - “when did the delta virus outbreak happen”, “what are the number of hospitalizations and/or deaths”, “what are the number of vaccinations” and so on. The story of the article seems to be that the omicron variant is different from previous variants in ways that people may get infected more easily but the disease won’t be as fatal as before. Additionally, getting vaccinated is encouraged. To drive these points home, I think the other contexts listed above would really help.</li>
+			</ul>
+		</section>
+
+		<section>
+			<h2>Visualization Sketches</h2>
+			Note: for the purposes of the sketches, I assumed that “number of cases” in the original visualization referred to number of “active” cases each day. After looking at the dataset in the next section of the assignment, I realized that number of cases probably referred to number of new cases each day. I decided not to change the sketches though.
+
+      <figure>
+				<img src="figs/sketch-1.jpg" alt="" style="transform: rotate(90deg);" />
+				<figcaption>
+          Sketch 1: Shows the progression of total and active covid cases over the periods of Jan 2020 - Jan 2022. 
+				</figcaption>
+			</figure>
+
+			<b>Design Rationale:</b>
+			<ul>
+				<li>Used markers along the width of the area to help users measure the breadth and thus easily infer the number of active cases</li>
+				<li>I changed the legend to say “active cases” instead of just cases. This was in an attempt to make things clearer in the visualization.</li>
+				<li>Added icons of different seasons to highlight the seasonal trends. The article claims that number of covid cases could go down in the summer and go up in the winter.</li>
+				<li>Additionally, I removed the “7-day average label” because I thought it was confusing. However in this version of the visualization, the number of days each point accounts for is still unclear.</li>
+				<li>Tried to add some metric to the x-axis. In the original graph even though we understand that as we move outwards, we are moving ahead in time, it is not clear if that time is measured along the scale. I thought I would try using circles of different circumference as a scale to indicate the total number of covid cases. Thus angle could indicate time and the radius could indicate cumulative number of covid cases. As the number of covid cases is always increasing from January 2020 to January 2022, the spiral will always move outward. I thought this could also help the user get some context on how quickly the total number of covid cases have been increasing.</li>
+			</ul>
+
+			<b>What Worked?</b>
+			<ul>
+				<li>Markers along the width help communicate the number of active cases along an aligned scale</li>
+				<li>We highlight seasonal trends through icons. I like the concept but I also don’t think this is the main point of the article so I decided to drop it in the next iteration.</li>
+			</ul>
+
+			<b>What didn't work?</b>
+			<ul>
+				<li>Using the total number of cases along the radial axis is making the visualization cluttered and not helping with the story too much. So I decided to drop it.</li>
+				<li>Maybe colour could be used as a visual encoding tool as well.</li>
+			</ul>
+
+			<b>Next Steps</b>
+			In the next sketch I want to try adding more context to the visualization in terms of what else was happening in the US at different times to put the increase and decrease in number of cases in perspective. I also want to explore using colour as a visual encoding tool.
+
+			<figure>
+				<img src="figs/sketch-2.jpg" alt="" style="transform: rotate(90deg);"/>
+				<figcaption>
+					Sketch 2: The number of active cases per day and number of vaccinated people who are currently COVID positive across the time period Jan 2020 - Jan 2022.
+				</figcaption>
+			</figure>
+
+			<b>
+				Design Rationale for Sketch 2:
+			</b>
+
+			<ul>
+				<li>I added other events such as ‘delta outbreak’, ‘masks recommended’ and ‘lockdown’ as context which might help people interpret hills and troughs in the line graph. These are just a subset of example events that I could think of and can be supplemented based on the dataset and the intended story of the visualization.</li>
+				<li>Used a line chart this time because I felt like the spiral chart from sketch 1 was too cluttered and wanted to visualize things in a form that I am more comfortable and familiar with in this iteration.
+				</li>
+				<li>I use colour to indicate number of active cases and number of active cases where people were vaccinated. The article seemed to recommend that people should get vaccinated towards the end and I thought the visualization could help argue for that recommendation. This also is part of the context that I think could be added to the graph.</li>
+			</ul>
+
+			<b>What worked?</b>
+			<ul>
+				<li>I like the context added in the graph, I believe that it can be quite powerful. However I think I may have added “too much context” in terms of text annotations here. I will try to reduce them in the next iteration.</li>
+				<li>The line charts are presented against an aligned axis making it easy to understand the values visually.</li>
+				<li>I like the added context that the number of vaccinations is providing. Of course for this to be a part of the visualization would imply that the related text would also have to talk about the relationship between vaccination and testing positive. Currently that is not the case but I am assuming that some of the text could potentially be changed. </li>
+			</ul>
+
+			<b>What didn't work?</b>
+			<ul>
+				<li>I really liked the spiral chart because of the ability to easily see yearly trends. The line chart doesn’t give us that capability.</li>
+				<li>I also particularly liked the “unfolding” metaphor that I spoke of earlier.</li>
+			</ul>
+
+			<b>Next Steps</b>
+			In the next sketch, I want to move back to the spiral. I want to focus on making it easier to visually understand the magnitude of cases by providing some kind of aligned axis. I also want to reduce the context that I give to help the story but also keep the visualization neat.
+
+
+			<figure>
+				<img src="figs/sketch-3.jpg" alt="" />
+				<figcaption>
+					Sketch 3: The number of active cases per day and number of vaccinated people who are currently COVID positive across the time period Jan 2020 - Jan 2022.
+				</figcaption>
+			</figure>
+
+			<b>
+				Design Rationale for Sketch 3:
+			</b>
+
+			<ul>
+				<li>I went back to the spiral pattern because I really like the concept and think it supports the ability of seeing yearly trends which is helpful for the story of the article as well.</li>
+				<li>Use of length on the spiral to depict the number of active cases, as opposed to area.</li>
+				<li>Additionally I use discrete blocks to indicate length and thus make it easier to easily understand the magnitude of length visually. This will result in a loss of expressivity since all values will have to be rounded to a multiple of the granularity of each block, which is 100 cases in this sketch. But I think this tradeoff in precision to enhance ease of reading is worthwhile.</li>
+				<li>Additionally I use discrete blocks to indicate length and thus make it easier to easily understand the magnitude of length visually. This will result in a loss of expressivity since all values will have to be rounded to a multiple of the granularity of each block, which is 100 cases in this sketch. But I think this tradeoff in precision to enhance ease of reading is worthwhile.</li>
+				<li>I also use colour to introduce redundancy in the visual encodings. The redundancy helps reduce the cognitive load in understanding the visualization.</li>
+				<li>Removed the axis lines for each month from the original figure and retained only January, <year> as a label. This was done to reduce the amount of clutter that was there in sketch 1.</li>
+				<li>I decided to only add information about the delta or omicron outbreak via text annotations.</li>
+				<li>I use a blue line along with shading to indicate the percentage of cases that were vaccinated. I debated using just a line of a line with the area below shaded. I think logically both could work, but decided to stick with the latter since this measure is an indication of the percentage of infected people who were vaccinated. And since the number of active cases also occupy some area in terms of height and width, I thought it would be nice if the number of vaccinated folks also occupied similar space. Although it isn’t clear to me if the fact that the blue line is continuous whereas the red blocks are discrete may be a source of confusion for a viewer.</li>
+			</ul>
+
+			<b>What worked?</b>
+			<ul>
+				<li>I think the visualization is much less cluttered with the reduced axes and annotations.</li>
+				<li>Using a discrete scale to indicate number of active covid cases I think helps a lot with understanding the visualization.</li>
+				<li>Using both colour and length as a form of data redundancy also helps make the figure easier to understand</li>
+			</ul>
+
+			<b>What didn't work?</b>
+			<ul>
+				<li>I don’t like how the number of vaccinated people who have covid are continuous whereas number of active covid cases is discrete. This is specifically because I was trying to highlight the ratio of vaccinated people who get covid. Thus comparing a discrete and continuous value feels awkward.</li>
+				<li>The blue area as it is I think gives nice context but still looks a little messy.</li>
+			</ul>
+
+			<b>Next Steps</b>
+			I think I could try to think about how to show percentage of vaccinated people as a texture perhaps in the spiral graph to ensure that both number of active covid cases and number of vaccinated people with covid are both discrete quantities and inherently point a being a ratio.
+		</section>
+
+		<section>
+			<h2>Final Visualization Design</h2>
+      
+			<figure>
+				<img src="figs/final.jpeg" alt="" />
+				<figcaption>
+					Final Visualization Design: The number of new cases and deaths per day for the time period of Jan 2020 - Jan 2022.
+				</figcaption>
+			</figure>
+
+		</section>
+
+		<section>
+			<h2>Design Process & Design Decisions</h2>
+
+			For this visualization my goal was to showcase the trends of deaths and number of covid cases while also highlighting the context of delta and omicron variants in the visualization. I liked my sketch 3 and started with that as an inspiration for this visualization.
+
+			<b>Data Cleaning: </b> During preliminary analysis of the data, I found that the cumulative number of cases suddenly dropped on two dates, one in September 2022 and one in December 2022. I excluded these data points. Additionally I found that there were some dates with negative number of new cases or number of deceased people. I excluded all of these rows with a filter.
+
+			<b>Design rationale: </b> I was really set on working with the spiral shape because I think it really highlights the yearly trends and showcases the passage of time very nicely. In order to do this I calculated the (x,y) cartesian coordinates from polar coordinates where the angle is determined by the date, and the radius of length is determined by either the number of cases or the number of deaths on that day. The scales of the two values (number of cases and deaths) is quite varied and thus it was difficult for me to find a way to overlap the representations without creating confusion based on the magnitude of the markings (due to different scales). Thus I decided to place both spirals side by side to allow for easy visual comparison. Additionally, I added the same annotation for omicron and delta outbreaks to provide context for both plots. Due to a lack of skill and time, I was unable to figure out how to plot discrete blocks (as in sketch 3) instead of bars. Since unaligned bars (as present in the spiral plot) are difficult to measure, I decided to use colour also to depict respective magnitudes. I tried to use discrete colour blocks on the scale to visually help people easily understand the values in the visualization. 
+
+			<b>Insights and story: </b> It is interesting to see that there is always a spike in number of deaths a little after there is a spike in number of cases (as seen in Oct 2020, Aug 2021 and Jan 2022). Additionally, two of these spikes correspond to the delta and omicron outbreaks. We also see that the number of deaths don’t spike as much as the number of cases in Jan 2022, i.e. with the omicron variant. This makes sense because the variant was known to be less fatal and people were more likely to be vaccinated at this time. Another insight that I thought was really interesting is that the COVID vaccines seem to came out during a relatively high number of cases. The number of deaths associated with the wave of these COVID cases is very high and hits the peak number of deaths. After the vaccine the number of deaths doesn’t ever go that high despite other waves of COVID. 
+
+
+      <h3>Reflection</h3>
+
+        <b>Critique: </b> I think I may have been too tied to the spiral design from the beginning of the design process. My lack of tableau skills did limit the kinds of visual encodings I could use within the spiral visualization. For example, I wanted to use discrete blocks similar to a unit chart (as seen in sketch 3) but I couldn’t figure out how to visualize that. Using discrete blocks to indicate a granularity of time and number of cases would make it much easier to read the chart, however I couldn’t address it in this visualization. Alternatively a unit chart with the number of cases (covid confirmed cases or deaths) with 3 rows, one for each year would have allowed for the seasonal wise comparison and given me more freedom with visual encodings because of the chart’s relative popularity and my comfort with it. I wonder if this would have made the plot easier to read as well instead of the spiral. I like the use of visual symbols to indicate different contextual events that help communicate the story with the audience. The use of colour also helps the user understand the values more clearly.
+		</section>
+	</main>
+</body>
+</html>
